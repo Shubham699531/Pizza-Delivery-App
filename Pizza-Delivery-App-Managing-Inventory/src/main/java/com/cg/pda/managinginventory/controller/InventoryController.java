@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.pda.managinginventory.dto.Pizza;
 import com.cg.pda.managinginventory.exception.NoPizzaAvailableException;
 import com.cg.pda.managinginventory.exception.PizzaAlreadyRemovedException;
+import com.cg.pda.managinginventory.exception.TypeOfPizzaNotAvailableException;
 import com.cg.pda.managinginventory.service.InventoryService;
 
 @RestController
@@ -22,14 +23,13 @@ import com.cg.pda.managinginventory.service.InventoryService;
 public class InventoryController {
 
 	public InventoryController() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Autowired
 	private InventoryService service;
 	
 	@PostMapping(value = "/add")
-	Pizza addPizza(@RequestBody Pizza pizza) {
+	Pizza addPizza(@RequestBody Pizza pizza) throws TypeOfPizzaNotAvailableException {
 		return service.addPizza(pizza);
 	}
 	

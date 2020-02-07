@@ -1,0 +1,24 @@
+[{
+	"pizzaName":"Margherita",
+	"pizzaDesc":"A hugely popular margherita, with a deliciously tangy single cheese topping",
+	"pizzaSize":"medium",
+	"crustType":"newhandtossed",
+	"extraCheese":false,
+	"pizzaType":"Veg",
+	"pizzaStatus":"Available",
+	"toppings":"JALAPENO",
+	"cost":160,
+	"imageUrl":"jjk"
+},
+{
+	"pizzaName":"Not Margherita",
+	"pizzaDesc":"A hugely popular margherita, with a deliciously tangy single cheese topping",
+	"pizzaSize":"small",
+	"crustType":"freshpanpizza",
+	"extraCheese":true,
+	"pizzaType":"Veg",
+	"pizzaStatus":"Available",
+	"toppings":"BLACKOLIVE",
+	"cost":180,
+	"imageUrl":"jjk"
+}]

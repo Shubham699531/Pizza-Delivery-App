@@ -5,11 +5,12 @@ import java.util.List;
 import com.cg.pda.managinginventory.dto.Pizza;
 import com.cg.pda.managinginventory.exception.NoPizzaAvailableException;
 import com.cg.pda.managinginventory.exception.PizzaAlreadyRemovedException;
+import com.cg.pda.managinginventory.exception.TypeOfPizzaNotAvailableException;
 
 public interface InventoryService {
 
 		//Add new pizza
-		Pizza addPizza(Pizza pizza);
+		Pizza addPizza(Pizza pizza) throws TypeOfPizzaNotAvailableException;
 		
 		//Search for pizza based on several fields
 		List<Pizza> findPizzaByName(String pizzaName)throws NoPizzaAvailableException;
