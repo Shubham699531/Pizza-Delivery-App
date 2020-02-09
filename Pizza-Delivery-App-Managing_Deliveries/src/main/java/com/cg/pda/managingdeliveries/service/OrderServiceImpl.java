@@ -8,10 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.pda.managingdeliveries.dto.CustomOrderObject;
 import com.cg.pda.managingdeliveries.dto.Order;
 import com.cg.pda.managingdeliveries.dto.Pizza;
 import com.cg.pda.managingdeliveries.exception.InvalidOrderException;
-import com.cg.pda.managingdeliveries.exception.PizzaNotAvailableException;
 import com.cg.pda.managingdeliveries.repo.OrderRepo;
 
 @Service
@@ -33,21 +33,15 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepo repo;
 
 	@Override
-	public Order createNewOrder(Order orderDetails) throws PizzaNotAvailableException {
-		
-		int orderSize = orderDetails.getPizzas().size();
-		for (int i = 0; i < orderSize; i++) {
-			Pizza pizza = orderDetails.getPizzas().get(i);
-			if(pizza.getPizzaStatus().equalsIgnoreCase("AVAILABLE")) {
-				orderDetails.setOrderAmount(calculateCost(orderDetails));
-				orderDetails.setOrderStatus("VERIFIED");
-				orderDetails.setOrderTime(new Date());
-				return repo.createNewOrder(orderDetails);
-			}
-		}
-		throw new PizzaNotAvailableException("Pizza not available currently. Try agian "
-				+ "after sometime.");
-		
+	public Order createNewOrder(Order order) {
+//		repo.updateOrderStatus(order);
+//		List<Pizza> listOfPizzas = repo.listOfPizzasForAnOrder(order.getPizzas());
+		order.setOrderAmount(calculateCost(order.getPizzas()));
+		order.setOrderStatus("VERIFIED");
+		order.setOrderTime(new Date());
+		repo.updateOrderStatus(order);
+		Order savedOrder = repo.createNewOrder(order);
+		return savedOrder;
 	}
 
 	@Override
@@ -59,44 +53,39 @@ public class OrderServiceImpl implements OrderService {
 	public Order findOrderById(int orderId) throws InvalidOrderException {
 		return repo.findOrderById(orderId);
 	}
-	
-	private double calculateCost(Order orderDetails) {
+
+	private double calculateCost(List<Pizza> listOfPizzas) {
 		double amount = 0;
 		double extraCheeseCost = 0;
 		double extraToppingsCost = 0;
 		double sizeCost = 0;
 		double crustTypeCost = 0;
 
-		int orderSize = orderDetails.getPizzas().size();
+		int orderSize = listOfPizzas.size();
 		for (int i = 0; i < orderSize; i++) {
-			Pizza pizza = orderDetails.getPizzas().get(i);
-			
-			//Checking for size
-			if(pizza.getPizzaSize().equalsIgnoreCase("SMALL")) {
+			Pizza pizza = listOfPizzas.get(i);
+
+			// Checking for size
+			if (pizza.getPizzaSize().equalsIgnoreCase("SMALL")) {
 				sizeCost = SMALL_SIZE_FACTOR;
-			}
-			else if(pizza.getPizzaSize().equalsIgnoreCase("MEDIUM")) {
+			} else if (pizza.getPizzaSize().equalsIgnoreCase("MEDIUM")) {
 				sizeCost = MEDIUM_SIZE_FACTOR;
-			}
-			else {
+			} else {
 				sizeCost = LARGE_SIZE_FACTOR;
 			}
-			
-			//Checking for type of crust
-			if(pizza.getCrustType().equalsIgnoreCase("FRESHPANPIZZA")) {
+
+			// Checking for type of crust
+			if (pizza.getCrustType().equalsIgnoreCase("FRESHPANPIZZA")) {
 				crustTypeCost = FRESH_PAN_PIZZA_PRICE;
-			}
-			else if(pizza.getCrustType().equalsIgnoreCase("NEWHANDTOSSED")) {
+			} else if (pizza.getCrustType().equalsIgnoreCase("NEWHANDTOSSED")) {
 				crustTypeCost = HAND_TOSSED_PRICE;
-			}
-			else if(pizza.getCrustType().equalsIgnoreCase("CHEESEBURST")) {
+			} else if (pizza.getCrustType().equalsIgnoreCase("CHEESEBURST")) {
 				crustTypeCost = CHEESE_BURST_PRICE;
-			}
-			else {
+			} else {
 				crustTypeCost = WHEAT_THIN_CRUST_PRICE;
 			}
-			
-			//Checking for extra cheese
+
+			// Checking for extra cheese
 			if (pizza.isExtraCheese()) {
 				extraCheeseCost = EXTRA_CHEESE_TOPPING_PRICE;
 			} else {
@@ -104,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 			if (pizza.getToppings() != null) {
 				String[] toppings = new String[10];
-				toppings = pizza.getToppings().split("[A-Z]");
+				toppings = pizza.getToppings().split(" ");
 				if (pizza.getPizzaType().equalsIgnoreCase("Veg")) {
 					extraToppingsCost = (toppings.length) * VEG_TOPPING_PRICE;
 				} else {
@@ -113,8 +102,7 @@ public class OrderServiceImpl implements OrderService {
 
 			}
 
-			amount += (pizza.getCost()) + extraToppingsCost + extraCheeseCost + sizeCost
-					+ crustTypeCost;
+			amount += (pizza.getCost()) + extraToppingsCost + extraCheeseCost + sizeCost + crustTypeCost;
 
 		}
 		return amount;

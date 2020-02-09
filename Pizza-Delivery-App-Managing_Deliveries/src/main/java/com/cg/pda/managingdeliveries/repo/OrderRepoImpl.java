@@ -1,5 +1,6 @@
 package com.cg.pda.managingdeliveries.repo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cg.pda.managingdeliveries.dto.Order;
+import com.cg.pda.managingdeliveries.dto.Pizza;
 import com.cg.pda.managingdeliveries.exception.InvalidOrderException;
 
 @Repository
@@ -18,8 +20,8 @@ public class OrderRepoImpl implements OrderRepo{
 	
 	@Override
 	public Order createNewOrder(Order orderDetails) {
-			mgr.persist(orderDetails);
-			return orderDetails;
+		mgr.persist(orderDetails);
+		return orderDetails;
 	}
 
 	@Override
@@ -36,6 +38,28 @@ public class OrderRepoImpl implements OrderRepo{
 		else {
 			return order;
 		}
+	}
+
+	@Override
+	public List<Pizza> listOfPizzasForAnOrder(int orderId) {
+		return mgr.createNamedQuery("listOfPizzasForAnOrder", Pizza.class)
+				.setParameter("orderId", orderId).getResultList();
+	}
+
+	@Override
+	public boolean updateOrderStatus(Order order) {
+		for(int i=0; i<order.getPizzas().size();i++) {
+			Pizza pizza = mgr.find(Pizza.class, order.getPizzas().get(i).getPizzaId());
+			if(pizza == null) {
+				return false;
+			}
+			else {
+				pizza.setOrder(order);
+				mgr.merge(pizza);
+//				mgr.flush();
+			}
+		}
+		return true;	
 	}
 
 }

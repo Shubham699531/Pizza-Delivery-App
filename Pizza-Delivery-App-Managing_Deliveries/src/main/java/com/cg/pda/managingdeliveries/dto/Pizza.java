@@ -1,21 +1,20 @@
 package com.cg.pda.managingdeliveries.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "pizza_id_gen", sequenceName = "pizza_id_gen", allocationSize = 1)
-@NamedQuery(name = "findPizzaByName", query = "FROM Pizza WHERE pizzaName like :pizzaName")
-@NamedQuery(name = "findPizzaByDesc", query = "FROM Pizza WHERE pizzaDesc like :pizzaDesc")
-@NamedQuery(name = "findPizzaBySize", query = "FROM Pizza WHERE pizzaSize like :pizzaSize")
-@NamedQuery(name = "findPizzaByCrustType", query = "FROM Pizza WHERE crustType like :crustType")
-@NamedQuery(name = "findPizzaByType", query = "FROM Pizza WHERE pizzaType like :pizzaType")
-@NamedQuery(name = "findPizzaByToppings", query = "FROM Pizza WHERE toppings like :toppings")
+@NamedQuery(name = "listOfPizzasForAnOrder", query = "FROM Pizza WHERE order.orderId =:orderId")
 @NamedQuery(name = "findAllPizzas", query = "FROM Pizza")
-public class Pizza {
+public class Pizza implements Serializable{
 
 	public Pizza() {
 	}
@@ -34,6 +33,16 @@ public class Pizza {
 	private double cost;
 	private String imageUrl;
 	
+	@ManyToOne
+	@JoinColumn(name = "orderId")
+	private Order order;
+	
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 	public int getPizzaId() {
 		return pizzaId;
 	}

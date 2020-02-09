@@ -3,8 +3,11 @@ package com.cg.pda.managinginventory.dto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+
 
 @Entity
 @SequenceGenerator(name = "pizza_id_gen", sequenceName = "pizza_id_gen", allocationSize = 1)
@@ -34,6 +37,16 @@ public class Pizza {
 	private double cost;
 	private String imageUrl;
 	
+	@ManyToOne
+	@JoinColumn(name = "orderId")
+	private Order order;
+	
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 	public int getPizzaId() {
 		return pizzaId;
 	}

@@ -84,6 +84,8 @@ public class InventoryController {
 			
 		}
 		else {
+			//Exception is thrown from inventory service, that need 
+			//to be removed in final version of generalized search
 			Set<Pizza> setOfPizzas = new HashSet<Pizza>();
 			setOfPizzas.addAll(service.findPizzaByName("%" + something + "%"));
 			setOfPizzas.addAll(service.findPizzaByDesc("%" + something + "%"));
