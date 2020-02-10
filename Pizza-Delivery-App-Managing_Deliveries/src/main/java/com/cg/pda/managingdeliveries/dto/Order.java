@@ -1,6 +1,5 @@
 package com.cg.pda.managingdeliveries.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Order {
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 
-	
+//Removing getter to prevent fetching list of pizzas while fetching order.	
 	public List<Pizza> getPizzas() {
 		return pizzas;
 	}

@@ -1,0 +1,39 @@
+.bgimg {
+    background-image: url('src/assets/img/home.jpeg');
+    opacity: 0.7;
+    height: 600px;
+    width: 100%;
+    margin: 0;
+}
+input[placeholder]{
+    font-style: italic;
+}
+
+.card-title{
+    color: aliceblue;
+}
+
+.userName{
+    color: aliceblue;
+}
+
+.password{
+    color: aliceblue;
+}
+#rightAlign{
+    text-align:right;
+    /* vertical-align: middle; */
+}
+
+.signuplink{
+    color: greenyellow;
+    font-size: 15px;
+}
+#signupDiv{
+    text-align: center;
+}
+
+.registerLink{
+    color: lightblue;
+    font-weight: bolder;
+}

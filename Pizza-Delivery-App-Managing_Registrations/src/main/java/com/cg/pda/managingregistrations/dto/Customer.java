@@ -6,11 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
-//@Entity
-//@SequenceGenerator(name = "customer_id_gen", sequenceName = "customer_id_gen", allocationSize = 1)
-//@NamedQuery(name = "returnStudentByUserName", query = "FROM Student WHERE userName =:userName")
+@Entity
+@SequenceGenerator(name = "customer_id_gen", sequenceName = "customer_id_gen", allocationSize = 1)
+@NamedQuery(name = "getCustomerByUserName", query = "FROM Customer WHERE userName =:userName")
 public class Customer {
 	
 	@Id

@@ -1,5 +1,7 @@
 package com.cg.pda.managinginventory.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 @NamedQuery(name = "findPizzaByType", query = "FROM Pizza WHERE pizzaType like :pizzaType")
 @NamedQuery(name = "findPizzaByToppings", query = "FROM Pizza WHERE toppings like :toppings")
 @NamedQuery(name = "findAllPizzas", query = "FROM Pizza")
-public class Pizza {
+public class Pizza implements Serializable{
 
 	public Pizza() {
 	}
@@ -28,8 +30,8 @@ public class Pizza {
 	private int pizzaId;
 	private String pizzaName;
 	private String pizzaDesc;
-	private String pizzaSize;
-	private String crustType;
+	private String pizzaSize; //Small, Medium,Large
+	private String crustType; //fresh pan pizza, new hand tossed, cheese burst, wheat thin crust
 	private boolean extraCheese;
 	private String pizzaType;  //Veg/Non-Veg
 	private String pizzaStatus; //Removed/Available
