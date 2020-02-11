@@ -15,4 +15,6 @@ public interface OrderService {
 	List<Order> viewAllOrders();
 	
 	Order findOrderById(int orderId) throws InvalidOrderException;
+	
+	List<Order> getOrdersByCustomerId(int customerId);
 }

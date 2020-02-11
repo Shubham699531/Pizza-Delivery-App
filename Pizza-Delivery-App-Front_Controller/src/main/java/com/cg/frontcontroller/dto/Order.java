@@ -1,10 +1,9 @@
-package com.cg.pda.managingdeliveries.dto;
+package com.cg.frontcontroller.dto;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,24 +13,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "OrderDetails")
 @SequenceGenerator(name = "order_id_gen", sequenceName = "order_id_gen", allocationSize = 1, initialValue = 1001)
-@NamedQuery(name = "listOrdersByCustomerId", query = "FROM Order WHERE customer.customerId=:customerId")
 @NamedQuery(name = "listAllOrders", query = "FROM Order")
 public class Order {
 
 	@Id
 	@GeneratedValue(generator = "order_id_gen")
 	private int orderId;
-	private String orderStatus; //Completed
+	private String orderStatus; //Verified
 	private double orderAmount;
 	private Date orderTime;
 	
 	//An order can have many pizzas
-	@JsonIgnore
 	@OneToMany(mappedBy = "order")
 	private List<Pizza> pizzas;
 	

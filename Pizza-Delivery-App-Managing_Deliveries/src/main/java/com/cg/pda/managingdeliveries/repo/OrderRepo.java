@@ -18,4 +18,6 @@ public interface OrderRepo {
 	
 	boolean updateOrderStatus(Order order);
 	
+	List<Order> getOrdersByCustomerId(int customerId);
+	
 }

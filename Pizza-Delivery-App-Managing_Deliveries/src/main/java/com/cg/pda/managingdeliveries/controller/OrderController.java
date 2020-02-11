@@ -31,12 +31,18 @@ public class OrderController {
 		return service.createNewOrder(order);
 	}
 	
-	@GetMapping()
+	@GetMapping(value = "/listAll")
 	List<Order> viewAllOrders(){
 		return service.viewAllOrders();
 	}
-	@GetMapping(value = "/list")
+	
+	@GetMapping(value = "/getOrderById")
 	Order findOrderById(@RequestParam int orderId) throws InvalidOrderException {
 		return service.findOrderById(orderId);
+	}
+	
+	@GetMapping(value = "/getOrdersByCustomerId")
+	List<Order> getOrdersByCustomerId(@RequestParam int customerId){
+		return service.getOrdersByCustomerId(customerId);
 	}
 }

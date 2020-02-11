@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
 	private static final double VEG_TOPPING_PRICE = 60;
 	private static final double NONVEG_TOPPING_PRICE = 90;
 	private static final double EXTRA_CHEESE_TOPPING_PRICE = 120;
-	private static final double SMALL_SIZE_FACTOR = 1.2;
+	private static final double SMALL_SIZE_FACTOR = 1;
 	private static final double MEDIUM_SIZE_FACTOR = 1.2;
 	private static final double LARGE_SIZE_FACTOR = 1.6;
 	private static final double FRESH_PAN_PIZZA_PRICE = 60;
@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 //		repo.updateOrderStatus(order);
 //		List<Pizza> listOfPizzas = repo.listOfPizzasForAnOrder(order.getPizzas());
 		order.setOrderAmount(calculateCost(order.getPizzas()));
-		order.setOrderStatus("VERIFIED");
+		order.setOrderStatus("COMPLETED");
 		order.setOrderTime(new Date());
 		repo.updateOrderStatus(order);
 		Order savedOrder = repo.createNewOrder(order);
@@ -106,6 +106,11 @@ public class OrderServiceImpl implements OrderService {
 
 		}
 		return amount;
+	}
+
+	@Override
+	public List<Order> getOrdersByCustomerId(int customerId) {
+		return repo.getOrdersByCustomerId(customerId);
 	}
 
 }

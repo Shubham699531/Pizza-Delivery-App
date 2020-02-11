@@ -62,4 +62,9 @@ public class OrderRepoImpl implements OrderRepo{
 		return true;	
 	}
 
+	@Override
+	public List<Order> getOrdersByCustomerId(int customerId) {
+		return mgr.createNamedQuery("listOrdersByCustomerId", Order.class).setParameter("customerId", customerId).getResultList();
+	}
+
 }

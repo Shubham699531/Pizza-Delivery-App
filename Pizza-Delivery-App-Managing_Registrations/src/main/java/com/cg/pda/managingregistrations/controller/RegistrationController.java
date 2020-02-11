@@ -15,7 +15,7 @@ import com.cg.pda.managingregistrations.dto.Login;
 import com.cg.pda.managingregistrations.exception.InvalidLoginCredentialsException;
 import com.cg.pda.managingregistrations.service.RegistrationService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/register")
 public class RegistrationController {
