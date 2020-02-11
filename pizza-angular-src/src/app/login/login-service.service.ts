@@ -15,6 +15,6 @@ export class LoginService {
   constructor(private http:HttpClient) { }
 
 validateLogin(login:LoginModel){
-  return this.http.post<CustomLoginObjectModel>("http://localhost:8883/register/login", login);
+  return this.http.post<CustomLoginObjectModel>("http://localhost:8880/front/login", login);
 }
 }

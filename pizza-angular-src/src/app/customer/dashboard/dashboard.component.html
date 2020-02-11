@@ -1,3 +1,104 @@
-<p>
-  dashboard works!
-</p>
+<!-- <meta http-equiv="refresh" content="5"> -->
+<div >
+  <table class="table table-bordered" >
+   <tr>
+     <th><h1>Your Details</h1></th>
+   </tr>
+   <tr>
+     <td>Name: </td>  <td> {{customer.name}}</td>
+   </tr>
+   <tr>
+     <td>Gender:</td><td>{{customer.gender}}</td>
+   </tr>
+   <tr>
+     <td>Date Of Birth: </td>  <td>{{customer.dob | date:'dd/MM/yyyy'}}</td>
+   </tr>
+   <tr>
+     <td>Contact No.:</td>  <td> {{customer.contactNo}}</td>
+   </tr>
+   <tr>
+     <td>Email: </td>  <td>{{customer.email}}</td>
+   </tr>
+   <tr>
+     <td>User Name: </td>  <td>{{customer.userName}}</td>
+   </tr>
+ 
+ </table>
+ </div>
+<br>
+<br>
+ <div ><h2>Pizzas You Have Tried....</h2></div>
+ <div ><h2>Get Started By Searching for your favorite Pizza!!</h2></div>
+ <div>
+  <table class="table table-bordered">
+      <tr><th>Book Id</th><th>Name</th><th>Genre</th><th>Author</th><th>Price</th><th>ISBN</th><th>Brief Description</th><th>Date of Issue</th><th>Date returned/to be returned</th><th>Amount Paid</th><th></th></tr>
+      <tr *ngFor="let o of orders">
+        <td>{{o.orderId}}</td>
+        <td>{{o.orderStatus}}</td>
+        <td>{{o.orderTime | date:'dd/MM/yyyy'}}</td>
+        <td>{{o.orderAmount}}</td>
+        <td>
+          <tr *ngFor="let p of o.pizzas">
+            <td><a href="#">{{p.pizzaName}}</a></td>
+          </tr>
+        </td>
+        <!-- <td>{{b.book.bookPrice}}</td>
+        <td>{{b.book.isbn}}</td>
+        <td>{{b.book.bookDescription}}</td>
+        <td>{{b.dateOfIssue | date:'dd/MM/yyyy'}}</td>
+        <td>{{b.dateOfReturn | date:'dd/MM/yyyy'}}</td>
+        <td>{{b.amount}}</td> -->
+
+        <!-- <td class="returnBookButton"><button class="btn btn-success" [disabled]="b.transactionStatus=='closed'" (click)="onButtonClick($event, b.book)">Return This Book</button></td> -->
+        <!-- <td><input type="text" [(ngModel)]=returnDate name="dor" class="form-control" placeholder="Enter return date(in dd-MM-yyyy)" required></td> -->
+      </tr>
+      <hr>
+    </table>
+</div>
+
+<div class="row">
+  <div class="col-sm-4" *ngFor="let p of pizzas">
+    <div class="card">
+      <img class="card-img-top" src='pizza-app\src\assets\img\home.jpeg' alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment {{p.pizzaName}}</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.{{p.order.orderId}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+
+<!-- <div *ngIf=!noBooksFound><h2>Suggested Books....</h2></div>
+ <div *ngIf=noBooksFound><h2>Get Started By Searching for your favorite book!!</h2></div>
+ <div>
+  <table class="table table-bordered" *ngIf=!noBooksFound>
+      <tr><th>Book Id</th><th>Name</th><th>Genre</th><th>Author</th><th>Price</th><th>ISBN</th><th>Brief Description</th><th></th></tr>
+      <tr *ngFor="let b of interestedBooks">
+        <td>{{b.bookId}}</td>
+        <td>{{b.bookName}}</td>
+        <td>{{b.bookGenre}}</td>
+        <td>{{b.bookAuthor}}</td>
+        <td>{{b.bookPrice}}</td>
+        <td>{{b.isbn}}</td>
+        <td>{{b.bookDescription}}</td>
+         <td>{{b.dateOfIssue | date:'dd/MM/yyyy'}}</td>
+        <td>{{b.dateOfReturn | date:'dd/MM/yyyy'}}</td>
+        <td>{{b.amount}}</td> -->
+
+        <!-- <td class="GetBookButton"><button class="btn btn-success" (click)="getBook($event, b)">Get This Book</button></td> -->
+        <!-- <td><input type="text" [(ngModel)]=returnDate name="dor" class="form-control" placeholder="Enter return date(in dd-MM-yyyy)" required></td> -->
+      <!-- </tr>  -->
+      <hr>
+
+
